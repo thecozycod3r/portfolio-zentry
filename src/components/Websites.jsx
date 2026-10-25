@@ -1,33 +1,38 @@
 import AnimatedTitle from "./AnimatedTitle";
 import { BentoTilt, BentoCard } from "./Features";
-import { asset, CASE_STUDIES } from "../lib";
+import { asset } from "../lib";
 
 const sites = {
   yercaud: {
+    slug: "yercaud-club",
     url: "https://yercaudclub.com/",
     meta: "Heritage members' club · Yercaud",
     title: <>y<b>e</b>rcaud club</>,
     description: "A hill club founded in 1897 with no website. Rebuilt from its tariff card, souvenir booklet and photographs; live on the club's own domain.",
   },
   nandipura: {
+    slug: "nandipura",
     url: "https://nandipuracoffee.com/",
     meta: "Coffee estate · Chikmagalur",
     title: <>n<b>a</b>ndipura</>,
     description: "A fifth-generation estate selling green coffee to roasters, positioned as the producer it is, not another café brand.",
   },
   bhramari: {
+    slug: "bhramari",
     url: "https://bhramarisakleshpur.com/",
     meta: "Private pool villa · Sakleshpur",
     title: <>bhr<b>a</b>mari</>,
     description: "One page that sells a weekend: open the gates, walk the path, check a date, message the owner.",
   },
   antilabs: {
+    slug: "anti-labs",
     url: "https://thecozycod3r.github.io/anti-labs-preview/anti-light.html",
     meta: "Studios + café · Bengaluru",
     title: <>a<b>n</b>ti labs</>,
     description: "A photo studio, dance studio and café under one roof. A pixel-accurate rebuild plus two new pages in the same language.",
   },
   unravel: {
+    slug: "unravel-experiences",
     url: "https://unravelexperiences.com/",
     meta: "Curated luxury travel",
     title: <>u<b>n</b>ravel</>,
@@ -44,6 +49,8 @@ const Site = ({ id }) => {
       title={s.title}
       description={s.description}
       chip={{ label: "visit site", href: s.url }}
+      to={`/websites/${s.slug}`}
+      label={`${s.slug.replace(/-/g, " ")}: read how it was designed`}
       dim="brightness-[.75]"
     />
   );
@@ -60,15 +67,8 @@ const Websites = () => (
           as="h2"
         />
         <p className="mt-4 max-w-xl text-center font-circular-web text-lg leading-relaxed text-gray-700 md:text-xl">
-          Designed and built end to end, each in its own type and colour.{" "}
-          <a
-            href={`${CASE_STUDIES}/websites/`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline decoration-violet-300 decoration-2 underline-offset-4 hover:text-violet-300"
-          >
-            How each one was designed
-          </a>
+          Designed and built end to end, each in its own type and colour.
+          Open any site to see the palette, type and decisions behind it.
         </p>
       </div>
 

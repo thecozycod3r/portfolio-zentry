@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { TiLocationArrow, TiLockClosed } from "react-icons/ti";
+import { Link, useNavigate } from "react-router-dom";
 
-import { asset, requestAccess, CASE_STUDIES } from "../lib";
+import { asset, requestAccess } from "../lib";
 import LazyVideo from "./LazyVideo";
 
 export const BentoTilt = ({ children, className = "" }) => {
@@ -42,7 +43,8 @@ export const BentoTilt = ({ children, className = "" }) => {
   );
 };
 
-export const BentoCard = ({ src, img, title, description, meta, chip, dim = "brightness-[.45] saturate-[.8]" }) => {
+export const BentoCard = ({ src, img, title, description, meta, chip, to, label, dim = "brightness-[.45] saturate-[.8]" }) => {
+  const navigate = useNavigate();
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverOpacity, setHoverOpacity] = useState(0);
   const hoverButtonRef = useRef(null);
@@ -63,8 +65,29 @@ export const BentoCard = ({ src, img, title, description, meta, chip, dim = "bri
   const ChipIcon = chip?.locked ? TiLockClosed : TiLocationArrow;
   const external = chip && /^https?:/.test(chip.href);
 
+  const open = (e) => {
+    if (!to || e.target.closest("a")) return;
+    navigate(to);
+  };
+
   return (
-    <div className="group/card relative size-full">
+    <div
+      className={`group/card relative size-full ${to ? "cursor-pointer" : ""}`}
+      onClick={open}
+      {...(to
+        ? {
+            role: "link",
+            tabIndex: 0,
+            "aria-label": label,
+            onKeyDown: (e) => e.key === "Enter" && e.target === e.currentTarget && navigate(to),
+          }
+        : {})}
+    >
+      {to && (
+        <span className="pointer-events-none absolute right-4 top-4 z-20 flex items-center gap-1 rounded-full bg-yellow-300 px-4 py-2 font-general text-xs uppercase text-black opacity-0 transition duration-300 group-hover/card:opacity-100 group-focus-visible/card:opacity-100 max-md:opacity-100">
+          view <TiLocationArrow />
+        </span>
+      )}
       {src && (
         <LazyVideo
           src={src}
@@ -121,10 +144,9 @@ export const BentoCard = ({ src, img, title, description, meta, chip, dim = "bri
   );
 };
 
-const TextTile = ({ className, meta, title, description, href, cta }) => (
-  <a
-    href={href}
-    {...(/^https?:/.test(href) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+const TextTile = ({ className, meta, title, description, to, cta = "view" }) => (
+  <Link
+    to={to}
     className={`group/tile flex size-full flex-col justify-between p-5 ${className}`}
   >
     <div>
@@ -136,7 +158,7 @@ const TextTile = ({ className, meta, title, description, href, cta }) => (
       {cta}
       <TiLocationArrow className="text-2xl transition-transform group-hover/tile:-translate-y-1 group-hover/tile:translate-x-1" />
     </span>
-  </a>
+  </Link>
 );
 
 const access = (name, repo) => ({
@@ -169,6 +191,8 @@ const Features = () => (
           }
           description="Meta, Google and client CRMs in one pipeline, feeding dashboards, AI insights and monthly reports. One login for staff, clients and self-serve businesses."
           chip={access("Cerno", "DAMClaude")}
+          to="/work/cerno"
+          label="Cerno: read the project"
         />
       </BentoTilt>
 
@@ -184,6 +208,8 @@ const Features = () => (
             }
             description="Briefs to published drafts, rank and AI-visibility tracking across ChatGPT, Gemini and Perplexity, and editable client reports. Runs on the team's own Claude plans."
             chip={access("Neo", "neo")}
+            to="/work/neo"
+            label="Neo: read the project"
           />
         </BentoTilt>
 
@@ -198,6 +224,8 @@ const Features = () => (
             }
             description="The agency's own task manager. Replaced Asana with the same routing rules, Slack approvals and late-work reports."
             chip={access("Tempo", "tempo")}
+            to="/work/tempo"
+            label="Tempo: read the project"
           />
         </BentoTilt>
 
@@ -211,7 +239,8 @@ const Features = () => (
               </>
             }
             description="An AI image and video studio for the creative team: seven models, spend limits, approvals and a UGC ad workflow."
-            chip={{ label: "case study", href: `${CASE_STUDIES}/projects/creative-studio/` }}
+            to="/work/creative-studio"
+            label="Creative Studio: read the project"
           />
         </BentoTilt>
 
@@ -225,8 +254,7 @@ const Features = () => (
               </>
             }
             description="Brief to approval to auto-post, replacing a Slack-and-WhatsApp chain."
-            href={requestAccess("Social Media Planner", "thecozycod3r/social-media-dash")}
-            cta="request access"
+            to="/work/social-planner"
           />
         </BentoTilt>
 
@@ -240,8 +268,7 @@ const Features = () => (
               </>
             }
             description="A live BigQuery view of revenue, costs and margin. Monthly close became weekly."
-            href={`${CASE_STUDIES}/projects/pl-dashboard/`}
-            cta="case study"
+            to="/work/pl-dashboard"
           />
         </BentoTilt>
       </div>

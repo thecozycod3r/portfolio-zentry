@@ -2,35 +2,11 @@ import AnimatedTitle from "./AnimatedTitle";
 import Button from "./Button";
 import { asset, EMAIL, LINKEDIN } from "../lib";
 
-const ImageClipBox = ({ src, clipClass }) => (
-  <div className={clipClass}>
-    <img src={src} alt="" />
-  </div>
-);
-
 const Contact = () => {
   return (
-    <div id="contact" className="my-20 min-h-96 w-screen  px-10">
-      <div className="relative rounded-lg bg-black py-24 text-blue-50 sm:overflow-hidden">
-        <div className="absolute -left-20 top-0 hidden h-full w-72 overflow-hidden sm:block lg:left-20 lg:w-96">
-          <ImageClipBox
-            src={asset("img/card-dragon.webp")}
-            clipClass="contact-clip-path-1"
-          />
-          <ImageClipBox
-            src={asset("img/card-wizard.webp")}
-            clipClass="contact-clip-path-2 lg:translate-y-40 translate-y-60"
-          />
-        </div>
-
-        <div className="absolute -top-40 left-20 w-60 sm:top-1/2 md:left-auto md:right-10 lg:top-20 lg:w-80">
-          <ImageClipBox
-            src={asset("img/me-small.webp")}
-            clipClass="sword-man-clip-path md:scale-110"
-          />
-        </div>
-
-        <div className="flex flex-col items-center text-center">
+    <div id="contact" className="my-20 min-h-96 w-screen px-4 sm:px-10">
+      <div className="relative grid items-center gap-10 overflow-hidden rounded-lg bg-black px-6 py-16 text-blue-50 md:px-12 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-14">
+        <div className="order-2 flex flex-col items-center text-center lg:order-1">
           <p className="mb-10 font-general text-sm uppercase">
             Say hello
           </p>
@@ -47,6 +23,15 @@ const Contact = () => {
             <Button title="résumé" href={asset("Dhruv_Shricharan_Resume.pdf")} download containerClass="!bg-blue-50" />
           </div>
         </div>
+
+        <figure className="order-1 mx-auto w-56 sm:w-64 lg:order-2 lg:w-full">
+          <img
+            src={asset("img/me-small.webp")}
+            alt="Dhruv Shricharan above the Bay of Kotor, Montenegro"
+            loading="lazy"
+            className="w-full -rotate-2 rounded-2xl border border-white/15 object-cover shadow-2xl transition-transform duration-500 hover:rotate-0"
+          />
+        </figure>
       </div>
     </div>
   );

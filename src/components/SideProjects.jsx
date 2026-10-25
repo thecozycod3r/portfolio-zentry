@@ -1,6 +1,6 @@
 import AnimatedTitle from "./AnimatedTitle";
 import { BentoTilt, BentoCard } from "./Features";
-import { asset, GITHUB, TABLE_NIGHT, CASE_STUDIES } from "../lib";
+import { asset, GITHUB, TABLE_NIGHT } from "../lib";
 
 const SideProjects = () => (
   <section id="side" className="w-screen bg-black pb-32 text-blue-50">
@@ -26,6 +26,8 @@ const SideProjects = () => (
             title={<>t<b>a</b>ble night</>}
             description="Fourteen card and party games played on your own phone. No accounts, no app store, and the table keeps going if the host leaves."
             chip={{ label: "play free", href: TABLE_NIGHT }}
+            to="/work/table-night"
+            label="Table Night: read the project"
             dim="brightness-[.8]"
           />
         </BentoTilt>
@@ -36,17 +38,13 @@ const SideProjects = () => (
             title={<>a<b>r</b>thur</>}
             description="A voice assistant for my Mac that reads email, Slack and the calendar, briefs me twice a day and acts only after I say yes."
             chip={{ label: "source code", href: `${GITHUB}/arthur` }}
+            to="/work/arthur"
+            label="Arthur: read the project"
             dim="brightness-[.7]"
           />
         </BentoTilt>
       </div>
 
-      <p className="mt-10 text-center font-general text-sm text-blue-50/60">
-        Longer write-ups:{" "}
-        <a href={`${CASE_STUDIES}/projects/table-night/`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-yellow-300">Table Night</a>
-        {" · "}
-        <a href={`${CASE_STUDIES}/projects/arthur/`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-yellow-300">Arthur</a>
-      </p>
     </div>
   </section>
 );

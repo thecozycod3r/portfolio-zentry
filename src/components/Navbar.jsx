@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import Button from "./Button";
 import { asset, EMAIL, GITHUB, LINKEDIN } from "../lib";
@@ -26,6 +27,17 @@ const NavBar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [active, setActive] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const onHome = location.pathname === "/";
+
+  // Section links: scroll on the home page, otherwise go home and land on the section
+  const goTo = (id) => (e) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    if (onHome) document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    else navigate("/", { state: { scrollTo: id } });
+  };
 
   // Hide on scroll down, show on scroll up; frosted once off the top
   useEffect(() => {
@@ -62,11 +74,12 @@ const NavBar = () => {
     sections.forEach((s) => io.observe(s));
     const onTop = () => window.scrollY < 200 && setActive(null);
     window.addEventListener("scroll", onTop, { passive: true });
+    if (!sections.length) setActive(null);
     return () => {
       io.disconnect();
       window.removeEventListener("scroll", onTop);
     };
-  }, []);
+  }, [location.pathname]);
 
   // Slide the highlight under the active link
   useLayoutEffect(() => {
@@ -146,14 +159,14 @@ const NavBar = () => {
               : "border border-transparent"
           )}
         >
-          <a href="#" aria-label="Back to top" className="flex items-center gap-3">
+          <Link to="/" aria-label="Home" onClick={() => onHome && window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3">
             <span className="flex-center size-9 rounded-lg bg-violet-300 font-zentry text-base text-yellow-300">
               DS
             </span>
             <span className="hidden font-general text-xs uppercase tracking-wider text-blue-50 sm:block">
               Dhruv Shricharan
             </span>
-          </a>
+          </Link>
 
           <div className="relative hidden items-center rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md md:flex">
             <span
@@ -166,6 +179,7 @@ const NavBar = () => {
                 key={item.id}
                 ref={(el) => (linkRefs.current[item.id] = el)}
                 href={`#${item.id}`}
+                onClick={goTo(item.id)}
                 aria-current={active === item.id ? "true" : undefined}
                 className={clsx(
                   "relative z-10 rounded-full px-4 py-1.5 font-general text-xs uppercase tracking-wider transition-colors duration-300",
@@ -225,7 +239,7 @@ const NavBar = () => {
             <li key={item.id} className="overflow-hidden pt-1">
               <a
                 href={`#${item.id}`}
-                onClick={() => setMenuOpen(false)}
+                onClick={goTo(item.id)}
                 className="menu-link special-font block font-zentry text-5xl uppercase leading-[1.05]"
               >
                 <span className="mr-3 align-top font-general text-xs text-yellow-300">
