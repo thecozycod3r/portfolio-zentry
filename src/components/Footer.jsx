@@ -31,14 +31,6 @@ const Footer = () => {
           ))}
         </div>
 
-        <a
-          href="https://github.com/adrianhajdin/award-winning-website"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-center text-sm font-light hover:underline md:text-right"
-        >
-          Built on JSM&apos;s award-winning-website
-        </a>
       </div>
     </footer>
   );

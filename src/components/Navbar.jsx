@@ -10,7 +10,8 @@ import { asset, EMAIL, GITHUB, LINKEDIN } from "../lib";
 const navItems = [
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
-  { id: "games", label: "Games" },
+  { id: "websites", label: "Websites" },
+  { id: "side", label: "Side projects" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -85,6 +86,24 @@ const NavBar = () => {
     });
   }, [active]);
 
+  // Escape closes the menu; widening to desktop closes it too
+  const menuButtonRef = useRef(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onMq = (e) => e.matches && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    mq.addEventListener("change", onMq);
+    const t = setTimeout(() => menuRef.current?.querySelector("a")?.focus(), 80);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      mq.removeEventListener("change", onMq);
+      clearTimeout(t);
+      menuButtonRef.current?.focus();
+    };
+  }, [menuOpen]);
+
   // Full-screen menu on phones
   useEffect(() => {
     const menu = menuRef.current;
@@ -116,6 +135,7 @@ const NavBar = () => {
     <>
       <div
         ref={navContainerRef}
+        onFocusCapture={() => setIsNavVisible(true)}
         className="fixed inset-x-0 top-4 z-50 px-4 sm:px-6"
       >
         <nav
@@ -166,9 +186,11 @@ const NavBar = () => {
               containerClass="!bg-yellow-300 hidden sm:flex items-center gap-1 !py-2.5"
             />
             <button
+              ref={menuButtonRef}
               type="button"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               onClick={() => setMenuOpen((o) => !o)}
               className="flex-center relative z-[60] size-10 rounded-full border border-white/20 bg-black/40 backdrop-blur md:hidden"
             >
@@ -191,16 +213,20 @@ const NavBar = () => {
 
       <div
         ref={menuRef}
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation"
         style={{ display: "none" }}
-        className="fixed inset-0 z-40 flex-col justify-between bg-black px-6 pb-10 pt-28 text-blue-50 md:hidden"
+        className="fixed inset-0 z-40 flex-col justify-between bg-black px-6 pb-10 pt-32 text-blue-50 md:hidden"
       >
         <ul className="flex flex-col gap-2">
           {navItems.map((item, i) => (
-            <li key={item.id} className="overflow-hidden">
+            <li key={item.id} className="overflow-hidden pt-1">
               <a
                 href={`#${item.id}`}
                 onClick={() => setMenuOpen(false)}
-                className="menu-link special-font block font-zentry text-6xl uppercase leading-[1.05]"
+                className="menu-link special-font block font-zentry text-5xl uppercase leading-[1.05]"
               >
                 <span className="mr-3 align-top font-general text-xs text-yellow-300">
                   0{i + 1}

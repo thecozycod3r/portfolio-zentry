@@ -39,10 +39,10 @@ html {
   }
 
   .special-font b {
-    font-family: "Instrument Serif", serif;
+    font-family: "Playfair Display", serif;
     font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-weight: 900;
+    letter-spacing: -0.03em;
   }
 
   .hero-heading {
@@ -50,7 +50,7 @@ html {
   }
 
   .about-subtext {
-    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
+    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-[22rem] -translate-x-1/2 text-center font-circular-web text-lg leading-snug md:max-w-[38rem] md:text-xl;
   }
 
   .about-image {
@@ -58,7 +58,7 @@ html {
   }
 
   .animated-title {
-    @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
+    @apply flex flex-col gap-1 text-5xl uppercase leading-[.95] text-white sm:px-32 md:text-[6rem] md:leading-[.85];
   }
 
   .animated-word {
@@ -69,7 +69,7 @@ html {
   }
 
   .bento-tilt_1 {
-    @apply relative border-hsla col-span-2 overflow-hidden rounded-md transition-transform duration-300 ease-out;
+    @apply relative border-hsla col-span-1 overflow-hidden rounded-md transition-transform duration-300 ease-out;
   }
 
   .bento-tilt_2 {
@@ -246,5 +246,20 @@ html {
   50% {
     transform: translateY(66%) scale(0.65);
     opacity: 0.8;
+  }
+}
+
+:where(a, button):focus-visible {
+  outline: 3px solid #edff66;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animated-word { opacity: 1; transform: none; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

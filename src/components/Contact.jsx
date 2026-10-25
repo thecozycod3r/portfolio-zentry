@@ -31,13 +31,14 @@ const Contact = () => {
         </div>
 
         <div className="flex flex-col items-center text-center">
-          <p className="mb-10 font-general text-[10px] uppercase">
+          <p className="mb-10 font-general text-sm uppercase">
             Say hello
           </p>
 
           <AnimatedTitle
             title="let&#39;s b<b>u</b>ild <br /> s<b>o</b>mething <br /> that sh<b>i</b>ps."
-            className="special-font !md:text-[6.2rem] w-full font-zentry !text-5xl !font-black !leading-[.9]"
+            containerClass="special-font w-full !text-5xl md:!text-[6.2rem] !leading-[1.02]"
+          as="h2"
           />
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
