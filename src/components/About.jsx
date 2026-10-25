@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 
 import AnimatedTitle from "./AnimatedTitle";
+import { asset } from "../lib";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,19 +31,20 @@ const About = () => {
     <div id="about" className="min-h-screen w-screen">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         <p className="font-general text-sm uppercase md:text-[10px]">
-          Welcome to Zentry
+          Hi, I'm Dhruv Shricharan
         </p>
 
         <AnimatedTitle
-          title="Disc<b>o</b>ver the world's <br /> largest shared <b>a</b>dventure"
+          title="I b<b>u</b>ild the <br /> s<b>y</b>stems behind <br /> the b<b>u</b>siness"
           containerClass="mt-5 !text-black text-center"
         />
 
         <div className="about-subtext">
-          <p>The Game of Games begins—your life, now an epic MMORPG</p>
+          <p>Founders&apos; Office at Digital Advantage Media, Bengaluru.</p>
           <p className="text-gray-500">
-            Zentry unites every player from countless games and platforms, both
-            digital and physical, into a unified Play Economy
+            Before that, a decision scientist on Mars Inc. supply chains. Now I
+            win clients, run the work, prove results and watch the money, and
+            I write the software for each step.
           </p>
         </div>
       </div>
@@ -50,9 +52,9 @@ const About = () => {
       <div className="h-dvh w-screen" id="clip">
         <div className="mask-clip-path about-image">
           <img
-            src="img/about.webp"
-            alt="Background"
-            className="absolute left-0 top-0 size-full object-cover"
+            src={asset("img/me.webp")}
+            alt="Dhruv Shricharan in Kotor, Montenegro"
+            className="absolute left-0 top-0 size-full object-cover object-[center_45%]"
           />
         </div>
       </div>

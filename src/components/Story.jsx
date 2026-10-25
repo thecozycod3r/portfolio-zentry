@@ -3,6 +3,7 @@ import { useRef } from "react";
 
 import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
+import { asset, TABLE_NIGHT } from "../lib";
 
 const FloatingImage = () => {
   const frameRef = useRef(null);
@@ -46,15 +47,15 @@ const FloatingImage = () => {
   };
 
   return (
-    <div id="story" className="min-h-dvh w-screen bg-black text-blue-50">
+    <div id="games" className="min-h-dvh w-screen bg-black text-blue-50">
       <div className="flex size-full flex-col items-center py-10 pb-24">
         <p className="font-general text-sm uppercase md:text-[10px]">
-          the multiversal ip world
+          side project · free to play
         </p>
 
         <div className="relative size-full">
           <AnimatedTitle
-            title="the st<b>o</b>ry of <br /> a hidden real<b>m</b>"
+            title="t<b>a</b>ble n<b>i</b>ght <br /> is <b>o</b>pen"
             containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
           />
 
@@ -67,8 +68,8 @@ const FloatingImage = () => {
                   onMouseLeave={handleMouseLeave}
                   onMouseUp={handleMouseLeave}
                   onMouseEnter={handleMouseLeave}
-                  src="/img/entrance.webp"
-                  alt="entrance.webp"
+                  src={asset("img/table-night.webp")}
+                  alt="Table Night game hub"
                   className="object-contain"
                 />
               </div>
@@ -106,14 +107,16 @@ const FloatingImage = () => {
         <div className="-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
             <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
-              Where realms converge, lies Zentry and the boundless pillar.
-              Discover its secrets and shape your fate amidst infinite
-              opportunities.
+              Fourteen multiplayer card and party games, played on your own
+              phone. No accounts, no app store, and the table keeps going if
+              the host leaves. Wizard, Splendor, Avalon, Coup, Codenames and
+              more.
             </p>
 
             <Button
               id="realm-btn"
-              title="discover prologue"
+              title="play free"
+              href={TABLE_NIGHT}
               containerClass="mt-5"
             />
           </div>
