@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -16,27 +16,41 @@ const useRouteTransition = (wipeRef) => {
   const location = useLocation();
   const first = useRef(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     const target = location.state?.scrollTo;
-    if (target) {
-      requestAnimationFrame(() =>
-        document.getElementById(target)?.scrollIntoView({ behavior: "instant" })
-      );
-    } else {
-      window.scrollTo(0, 0);
-    }
-    ScrollTrigger.refresh();
+    // Jump, don't glide: html has scroll-behavior: smooth, which a route change interrupts
+    const jump = () => {
+      const html = document.documentElement;
+      const prev = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+      const el = target && document.getElementById(target);
+      window.scrollTo(0, el ? el.getBoundingClientRect().top + window.scrollY : 0);
+      html.style.scrollBehavior = prev;
+    };
+    jump();
+    // Pins and lazy media change the page height after the first paint: settle, then jump again
+    const raf = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      jump();
+    });
+    const t = setTimeout(jump, 350);
 
+    const cleanup = () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
     if (first.current) {
       first.current = false;
-      return;
+      return cleanup;
     }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return cleanup;
     gsap.fromTo(
       wipeRef.current,
       { clipPath: "inset(0% 0% 0% 0%)" },
       { clipPath: "inset(0% 0% 100% 0%)", duration: 0.7, ease: "power3.inOut" }
     );
+    return cleanup;
   }, [location.pathname, location.key, wipeRef, location.state]);
 };
 
