@@ -51,10 +51,15 @@ const About = () => {
 
       <div className="h-dvh w-screen" id="clip">
         <div className="mask-clip-path about-image">
-          <img
-            src={asset("img/me.webp")}
-            alt="Dhruv Shricharan in Kotor, Montenegro"
-            className="absolute left-0 top-0 size-full object-cover object-[center_45%]"
+          <video
+            src={asset("media/montage.mp4")}
+            poster={asset("img/poster.jpg")}
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-label="Montage of Cerno, Neo, Tempo and Table Night"
+            className="absolute left-0 top-0 size-full object-cover object-left-top"
           />
         </div>
       </div>

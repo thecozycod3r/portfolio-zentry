@@ -25,8 +25,8 @@ const Contact = () => {
 
         <div className="absolute -top-40 left-20 w-60 sm:top-1/2 md:left-auto md:right-10 lg:top-20 lg:w-80">
           <ImageClipBox
-            src={asset("img/card-witch.webp")}
-            clipClass="sword-man-clip-path md:scale-125"
+            src={asset("img/me-small.webp")}
+            clipClass="sword-man-clip-path md:scale-110"
           />
         </div>
 

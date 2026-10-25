@@ -113,7 +113,7 @@ const Hero = () => {
                   loop
                   muted
                   id="current-video"
-                  className="size-64 origin-center scale-150 object-cover object-center"
+                  className="size-64 origin-center scale-150 object-cover object-left-top"
                   onLoadedData={handleVideoLoad}
                 />
               </div>
@@ -123,6 +123,7 @@ const Hero = () => {
           <video
             ref={nextVdRef}
             src={getVideoSrc(currentIndex)}
+            playsInline
             loop
             muted
             id="next-video"
@@ -136,9 +137,12 @@ const Hero = () => {
             autoPlay
             loop
             muted
-            className="absolute left-0 top-0 size-full object-cover object-center"
+            playsInline
+            className="absolute left-0 top-0 size-full object-cover object-left-top"
             onLoadedData={handleVideoLoad}
           />
+          {/* scrim: the tools are light UIs, the headline is white */}
+          <div className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-br from-black/85 via-black/45 to-black/70" />
         </div>
 
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
@@ -152,7 +156,7 @@ const Hero = () => {
             </h1>
 
             <p className="mb-5 max-w-72 font-robert-regular text-blue-100">
-              I build the systems behind a business. <br /> Hover the centre, click to change scene.
+              I build the systems behind a business. <br /> Hover the centre, click to flip through the tools.
             </p>
 
             <Button

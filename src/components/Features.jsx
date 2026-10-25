@@ -62,7 +62,7 @@ export const BentoCard = ({ src, img, title, description, meta, chip }) => {
   const external = chip && /^https?:/.test(chip.href);
 
   return (
-    <div className="relative size-full">
+    <div className="group/card relative size-full">
       {src && (
         <video
           src={src}
@@ -70,7 +70,7 @@ export const BentoCard = ({ src, img, title, description, meta, chip }) => {
           muted
           autoPlay
           playsInline
-          className="absolute left-0 top-0 size-full object-cover object-center"
+          className="absolute left-0 top-0 size-full object-cover object-left-top brightness-[.45] saturate-[.8] transition duration-700 group-hover/card:scale-[1.03] group-hover/card:brightness-90 group-hover/card:saturate-100"
         />
       )}
       {img && (
@@ -81,7 +81,7 @@ export const BentoCard = ({ src, img, title, description, meta, chip }) => {
         />
       )}
       {/* keeps the white text readable over bright paintings */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-black/50" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/90 via-black/20 to-black/60 transition-opacity duration-700 group-hover/card:opacity-60" />
       <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
         <div>
           {meta && (
@@ -144,7 +144,7 @@ const Features = () => (
 
       <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
         <BentoCard
-          src={asset("media/feat-1.mp4")}
+          src={asset("media/cerno.mp4")}
           meta="Analytics platform · 2026"
           title={
             <>
@@ -159,7 +159,7 @@ const Features = () => (
       <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
           <BentoCard
-            src={asset("media/feat-2.mp4")}
+            src={asset("media/neo.mp4")}
             meta="SEO + GEO content · 2026"
             title={
               <>
@@ -173,7 +173,7 @@ const Features = () => (
 
         <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0">
           <BentoCard
-            src={asset("media/feat-3.mp4")}
+            src={asset("media/tempo.mp4")}
             meta="Operations · 2026"
             title={
               <>
@@ -187,7 +187,7 @@ const Features = () => (
 
         <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
           <BentoCard
-            img={asset("img/card-witch.webp")}
+            src={asset("media/arthur.mp4")}
             meta="Personal · open source"
             title={
               <>
@@ -216,7 +216,7 @@ const Features = () => (
 
         <BentoTilt className="bento-tilt_2">
           <BentoCard
-            src={asset("media/hero-4.mp4")}
+            src={asset("media/studio.mp4")}
             meta="Creative tooling · 2026"
             title={
               <>
